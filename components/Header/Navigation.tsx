@@ -2,23 +2,30 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { NAVIGATION_ITEMS } from '@/lib/constants'
+
+const NAVIGATION_ITEMS = [
+  { href: '/about', label: 'О компании' },
+  { href: '/services', label: 'Услуги' },
+  { href: '/catalog', label: 'Каталог' },
+  { href: '/docs', label: 'Техническая документация' },
+  { href: '/contact', label: 'Контакты' },
+]
 
 export default function Navigation() {
   const pathname = usePathname()
   
   return (
-    <nav className="hidden md:flex space-x-6">
+    <nav className="hidden md:flex items-center space-x-8">
       {NAVIGATION_ITEMS.map((item) => {
         const isActive = pathname === item.href
         return (
           <Link
             key={item.href}
             href={item.href}
-            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+            className={`text-sm font-medium transition-colors ${
               isActive
-                ? 'bg-blue-600 text-white'
-                : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900'
+                ? 'text-[#FE924A]'
+                : 'text-white hover:text-[#FE924A]'
             }`}
           >
             {item.label}

@@ -1,128 +1,141 @@
 import type { Metadata } from 'next'
-import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { mockProducts } from '@/lib/api/mockData'
-import { formatPrice } from '@/lib/utils'
 import Button from '@/components/ui/Button'
+import ContactForm from '@/components/ContactForm/ContactForm'
+import ScrollToTop from '@/components/ScrollToTop'
+import ProductImages from './ProductImages'
+import ProductTabs from './ProductTabs'
+import AddToCartButton from './AddToCartButton'
+import { productsData } from '@/lib/api/productsData'
+import { notFound } from 'next/navigation'
 
-// Генерируем статичные пути для всех товаров
-export async function generateStaticParams() {
-  return mockProducts.map(product => ({
-    productId: product.id.toString(),
-  }))
-}
-
-// Генерируем метаданные для SEO
 export async function generateMetadata({ 
   params 
 }: { 
   params: { productId: string } 
 }): Promise<Metadata> {
-  const product = mockProducts.find(p => p.id.toString() === params.productId)
+  const product = productsData[params.productId]
   
   if (!product) {
     return {
       title: 'Товар не найден | ENT Engineering',
     }
   }
-  
+
   return {
-    title: `${product.name} | Каталог - ENT Engineering`,
+    title: `${product.name} | ${product.series} - ENT Engineering`,
     description: product.description,
   }
 }
 
-export default async function ProductPage({ 
-  params 
-}: { 
-  params: { productId: string } 
-}) {
-  const product = mockProducts.find(p => p.id.toString() === params.productId)
+export default function ProductPage({ params }: { params: { productId: string } }) {
+  const product = productsData[params.productId]
   
   if (!product) {
     notFound()
   }
 
-  return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-4">
-        <Link 
-          href="/catalog" 
-          className="text-blue-600 hover:text-blue-700 text-sm"
-        >
-          ← Вернуться в каталог
-        </Link>
-      </div>
+  // Хлебные крошки
+  const breadcrumbs = product.breadcrumbs.map((crumb, index, array) => ({
+    ...crumb,
+    active: index === array.length - 1,
+  }))
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <div>
-          <div className="bg-gray-100 h-96 rounded-lg flex items-center justify-center mb-4">
-            {product.image ? (
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-full object-cover rounded-lg"
-              />
-            ) : (
-              <span className="text-gray-400 text-lg">Изображение товара</span>
-            )}
-          </div>
+  return (
+    <div className="min-h-screen">
+      {/* Хлебные крошки и заголовок */}
+      <section className="bg-[#2A2529] py-6 sm:py-8">
+        <div className="container mx-auto px-4">
+          {/* Хлебные крошки */}
+          <nav className="mb-4">
+            <ol className="flex flex-wrap items-center gap-2 text-sm">
+              {breadcrumbs.map((crumb, index) => (
+                <li key={index} className="flex items-center gap-2">
+                  {index > 0 && <span className="text-white/50">/</span>}
+                  {crumb.active ? (
+                    <span className="text-[#FE924A] font-medium">{crumb.label}</span>
+                  ) : (
+                    <Link href={crumb.href} className="text-white hover:text-[#FE924A] transition-colors">
+                      {crumb.label}
+                    </Link>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </nav>
+
+          {/* Заголовок */}
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#FE924A]">
+            {product.name}
+          </h1>
         </div>
-        
-        <div>
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <p className="text-gray-600 mb-4 text-lg leading-relaxed">
-            {product.description}
-          </p>
-          
-          <div className="mb-4">
-            <span className="text-sm text-gray-500">Категория:</span>
-            <span className="ml-2 text-blue-600 font-medium">{product.category}</span>
+      </section>
+
+      {/* Основной контент */}
+      <section className="bg-[#3B363C] py-8 sm:py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-8">
+            {/* Левая часть - Изображения */}
+            <ProductImages images={product.images} productName={product.name} />
+
+            {/* Правая часть - Описание и кнопки */}
+            <div>
+              {product.briefDescription && (
+                <div className="mb-6">
+                  <h3 className="text-[#FE924A] font-semibold mb-3 text-lg">Краткое описание</h3>
+                  <p className="text-white/90 text-base sm:text-lg leading-relaxed">
+                    {product.briefDescription}
+                  </p>
+                </div>
+              )}
+              
+              <p className="text-white/90 text-base sm:text-lg mb-6 leading-relaxed">
+                {product.description}
+              </p>
+
+              {/* Цена */}
+              <div className="mb-6">
+                <p className="text-white/80 text-sm mb-2">Цена:</p>
+                {product.price > 0 ? (
+                  <p className="text-white text-3xl sm:text-4xl font-bold">
+                    {product.price.toLocaleString('ru-RU')} руб.
+                  </p>
+                ) : (
+                  <p className="text-white text-xl sm:text-2xl font-bold">
+                    По запросу
+                  </p>
+                )}
+              </div>
+
+              {/* Кнопки */}
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <Button size="lg" className="w-full sm:w-auto flex-1">
+                  Заказать
+                </Button>
+                <AddToCartButton
+                  product={{
+                    id: product.id,
+                    name: product.name,
+                    model: product.series,
+                    price: product.price,
+                    image: product.images[0],
+                    href: `/catalog/${product.id}`,
+                  }}
+                />
+              </div>
+            </div>
           </div>
-          
-          <div className="text-3xl font-bold text-blue-600 mb-6">
-            {formatPrice(product.price)}
-          </div>
-          
-          {/* Кнопка добавления в корзину (можно сделать клиентским компонентом) */}
-          <Button size="lg" className="w-full mb-4">
-            Добавить в корзину
-          </Button>
-          
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <p className="text-sm text-gray-700">
-              <strong>Гарантия:</strong> На все товары предоставляется гарантия производителя
-            </p>
-          </div>
+
+          {/* Вкладки с описанием */}
+          <ProductTabs product={product} />
         </div>
-      </div>
-      
-      {/* Дополнительная информация */}
-      {product.specifications && product.specifications.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Характеристики</h2>
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <table className="w-full">
-              <tbody>
-                {product.specifications.map((spec, index) => (
-                  <tr 
-                    key={index} 
-                    className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
-                  >
-                    <td className="px-6 py-4 font-medium text-gray-900 border-b border-gray-200">
-                      {spec.name}
-                    </td>
-                    <td className="px-6 py-4 text-gray-700 border-b border-gray-200">
-                      {spec.value}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+      </section>
+
+      {/* Форма обратной связи */}
+      <ContactForm />
+
+      {/* Кнопка скролла наверх */}
+      <ScrollToTop />
     </div>
   )
 }
-

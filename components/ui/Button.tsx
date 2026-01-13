@@ -2,7 +2,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
-  variant?: 'primary' | 'secondary' | 'outline'
+  variant?: 'primary' | 'outline'
   size?: 'sm' | 'md' | 'lg'
 }
 
@@ -13,12 +13,11 @@ export default function Button({
   className = '',
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
+  const baseStyles = 'font-medium rounded-lg transition-colors focus:outline-none'
   
   const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-    secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
-    outline: 'border-2 border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500',
+    primary: 'bg-[#FE924A] text-[#3B363C] hover:bg-[#FE924A]/90',
+    outline: 'bg-transparent border-2 border-white text-white hover:bg-white/10',
   }
   
   const sizes = {
