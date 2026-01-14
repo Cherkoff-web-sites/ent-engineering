@@ -6,6 +6,7 @@ import ScrollToTop from '@/components/ScrollToTop'
 import ProductImages from './ProductImages'
 import ProductTabs from './ProductTabs'
 import AddToCartButton from './AddToCartButton'
+import { getProduct } from '@/lib/api/productsApi'
 import { productsData } from '@/lib/api/productsData'
 import { notFound } from 'next/navigation'
 
@@ -14,7 +15,7 @@ export async function generateMetadata({
 }: { 
   params: { productId: string } 
 }): Promise<Metadata> {
-  const product = productsData[params.productId]
+  const product = await getProduct(params.productId) || productsData[params.productId]
   
   if (!product) {
     return {
@@ -28,8 +29,8 @@ export async function generateMetadata({
   }
 }
 
-export default function ProductPage({ params }: { params: { productId: string } }) {
-  const product = productsData[params.productId]
+export default async function ProductPage({ params }: { params: { productId: string } }) {
+  const product = await getProduct(params.productId) || productsData[params.productId]
   
   if (!product) {
     notFound()

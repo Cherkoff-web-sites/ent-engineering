@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm/ContactForm'
+import { getContent } from '@/lib/api/contentApi'
 
 // SSG страница для контактов
 export const metadata: Metadata = {
@@ -7,7 +8,13 @@ export const metadata: Metadata = {
   description: 'Контактная информация ENT Engineering',
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const content = await getContent()
+  const contactContent = content.contact || {
+    address: 'Россия, Москва, ЗАО, Минская ул., д.2 "г", корп.1 БЦ КУТУЗОВ ХОЛЛ',
+    workingHours: 'Пн-Пт 09:00 - 18:00',
+    email: 'info@ent-engineering.ru',
+  }
   return (
     <div className="min-h-screen">
       {/* Секция "КОНТАКТЫ" */}
@@ -24,9 +31,7 @@ export default function ContactPage() {
               <div>
                 <p className="text-white text-base sm:text-lg">
                   <span className="text-white/80">Адрес:</span>{' '}
-                  <span className="text-white">
-                    Россия, Москва, ЗАО, Минская ул., д.2 "г", корп.1 БЦ КУТУЗОВ ХОЛЛ
-                  </span>
+                  <span className="text-white">{contactContent.address}</span>
                 </p>
               </div>
 
@@ -34,7 +39,7 @@ export default function ContactPage() {
               <div>
                 <p className="text-white text-base sm:text-lg">
                   <span className="text-white/80">Режим работы:</span>{' '}
-                  <span className="text-white">Пн-Пт 09:00 - 18:00</span>
+                  <span className="text-white">{contactContent.workingHours}</span>
                 </p>
               </div>
 
@@ -43,10 +48,10 @@ export default function ContactPage() {
                 <p className="text-white text-base sm:text-lg">
                   <span className="text-white/80">E-mail:</span>{' '}
                   <a
-                    href="mailto:info@ent-engineering.ru"
+                    href={`mailto:${contactContent.email}`}
                     className="text-white hover:text-[#FE924A] transition-colors"
                   >
-                    info@ent-engineering.ru
+                    {contactContent.email}
                   </a>
                 </p>
               </div>
