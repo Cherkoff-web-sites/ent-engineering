@@ -66,9 +66,9 @@ export default async function AboutPage() {
 
             {/* Правая часть - Изображение */}
             <div className="relative">
-              <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden border-2 border-white/20">
+              <div className="relative w-full aspect-[3/4] overflow-hidden">
                 <Image
-                  src="/images/about.png"
+                  src="/images/about.webp"
                   alt="О компании"
                   fill
                   className="object-cover"

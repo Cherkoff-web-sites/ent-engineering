@@ -87,9 +87,14 @@ export default async function ContactPage() {
               </div>
             </div>
 
-            {/* Правая часть - Место для карты (пока пусто) */}
-            <div className="bg-[#2A2529] rounded-lg min-h-[400px] flex items-center justify-center">
-              <p className="text-white/50 text-sm">Карта будет добавлена позже</p>
+            {/* Правая часть - Карта */}
+            <div className="bg-[#2A2529] rounded-lg overflow-hidden min-h-[400px]">
+              <iframe
+                src="https://yandex.ru/map-widget/v1/?um=constructor%3A80f5bd24b896059025511c8a84fa0ae344d2b14e86d022fb06304bc1495daf80&source=constructor"
+                width="100%"
+                height="400"
+                frameBorder="0"
+              />
             </div>
           </div>
         </div>

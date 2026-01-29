@@ -13,9 +13,19 @@ interface AddToCartButtonProps {
     image: string
     href: string
   }
+  label?: string
+  variant?: 'primary' | 'outline'
+  className?: string
+  allowZeroPrice?: boolean
 }
 
-export default function AddToCartButton({ product }: AddToCartButtonProps) {
+export default function AddToCartButton({
+  product,
+  label = 'Добавить в корзину',
+  variant = 'outline',
+  className = 'w-full sm:w-auto flex-1',
+  allowZeroPrice = false,
+}: AddToCartButtonProps) {
   const { addItem } = useCart()
   const router = useRouter()
 
@@ -32,9 +42,9 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
     // router.push('/cart')
   }
 
-  if (product.price === 0) {
+  if (product.price === 0 && !allowZeroPrice) {
     return (
-      <Button variant="outline" size="lg" className="w-full sm:w-auto flex-1">
+      <Button variant="outline" size="lg" className={className}>
         Получить прайс-лист
       </Button>
     )
@@ -42,12 +52,12 @@ export default function AddToCartButton({ product }: AddToCartButtonProps) {
 
   return (
     <Button
-      variant="outline"
+      variant={variant}
       size="lg"
-      className="w-full sm:w-auto flex-1"
+      className={className}
       onClick={handleAddToCart}
     >
-      Добавить в корзину
+      {label}
     </Button>
   )
 }

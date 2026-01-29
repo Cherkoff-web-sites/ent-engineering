@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Navigation from './Navigation'
 import MobileMenu from './MobileMenu'
 import { useCart } from '@/contexts/CartContext'
@@ -17,15 +18,15 @@ export default function Header() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-20">
             {/* Логотип */}
-            <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-              <div className="flex flex-col">
-                <div className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white leading-none">
-                  ENT
-                </div>
-                <div className="text-[10px] sm:text-xs text-white/80 leading-none mt-1">
-                  ENERGY AND TECHNOLOGY
-                </div>
-              </div>
+            <Link href="/" className="flex items-center flex-shrink-0">
+              <Image
+                src="/images/logo.svg"
+                alt="ENT Engineering"
+                width={180}
+                height={48}
+                className="h-10 w-auto sm:h-12"
+                priority
+              />
             </Link>
 
             {/* Десктопная навигация */}

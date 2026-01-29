@@ -38,71 +38,162 @@ export default function HomePage() {
       image: '/images/categories/soft-starter.png',
     },
   ]
+  const serviceItems = [
+    {
+      id: 1,
+      title: 'Предпроектное обследование',
+      image: '/images/services/preproject.webp',
+    },
+    {
+      id: 2,
+      title: 'Проектирование и установка',
+      image: '/images/services/design-install.webp',
+    },
+    {
+      id: 3,
+      title: 'Подбор и поставка оборудования',
+      image: '/images/services/equipment.webp',
+    },
+    {
+      id: 4,
+      title: 'Шефмонтаж и пусконаладка',
+      image: '/images/services/commissioning.webp',
+    },
+    {
+      id: 5,
+      title: 'Сервисное обслуживание',
+      image: '/images/services/service.webp',
+    },
+    {
+      id: 6,
+      title: 'Обучение персонала',
+      image: '/images/services/training.webp',
+    },
+  ]
+  const heroServicesBackground = '/images/bg.webp'
 
   return (
     <div className="min-h-screen">
-      {/* Первый блок - Hero секция */}
-      <section className="relative min-h-[500px] sm:min-h-[600px] flex items-center overflow-hidden">
-        <div className="container mx-auto px-4 py-8 sm:py-16 w-full">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
-            {/* Левая часть - Текст */}
-            <div className="z-10">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
-                <span className="text-[#FE924A]">СОВРЕМЕННЫЕ</span>
-                <br />
-                <span className="text-white">инженерные системы</span>
-              </h1>
-              <p className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-xl">
-                Производство и сервис силовой преобразовательной техники. Комплексные поставки 
-                электротехнического оборудования и проектных решений для электропривода.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#contact-form">
-                  <Button size="lg" className="w-full sm:w-auto">
-                    Оставить заявку
-                  </Button>
-                </a>
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  Скачать каталог
-                </Button>
+      <div className="relative overflow-hidden">
+        {heroServicesBackground && (
+          <Image
+            src={heroServicesBackground}
+            alt=""
+            fill
+            priority
+            className="object-cover object-right"
+            sizes="100% 100%"
+          />
+        )}
+        <div className="absolute inset-0 bg-black/40" />
+        <div className="relative">
+          {/* Первый блок - Hero секция */}
+          <section className="min-h-[500px] sm:min-h-[600px] flex items-center">
+            <div className="container mx-auto px-4 py-8 sm:py-16 w-full">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+                {/* Левая часть - Текст */}
+                <div>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
+                    <span className="text-[#FE924A]">СОВРЕМЕННЫЕ</span>
+                    <br />
+                    <span className="text-white">инженерные системы</span>
+                  </h1>
+                  <p className="text-base sm:text-lg text-white/90 mb-6 sm:mb-8 leading-relaxed max-w-xl">
+                    Производство и сервис силовой преобразовательной техники. Комплексные поставки 
+                    электротехнического оборудования и проектных решений для электропривода.
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact-form">
+                      <Button size="lg" className="w-full sm:w-auto">
+                        Оставить заявку
+                      </Button>
+                    </a>
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                      Скачать каталог
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Правая часть - Категории товаров */}
+                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                  {categories.map((category) => (
+                    <Link
+                      key={category.id}
+                      href={category.href}
+                      className="group relative bg-[rgba(190,183,176,0.1)] backdrop-blur-[5px] border border-[#FE924A]/70 rounded-xl p-3 sm:p-4 lg:p-6 hover:border-[#FE924A]/90 transition-all"
+                    >
+                      <div className="aspect-square rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
+                        {category.image ? (
+                          <div className="relative w-full h-full flex items-center justify-center">
+                            <Image
+                              src={category.image}
+                              alt={category.name}
+                              width={193}
+                              height={193}
+                              className="object-contain rounded-lg max-w-[193px]"
+                              sizes="193px"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-[#3B363C] to-[#2A2529] flex items-center justify-center">
+                            <span className="text-white/30 text-sm">Изображение</span>
+                          </div>
+                        )}
+                      </div>
+                      <h3 className="text-white text-sm font-medium text-center group-hover:text-[#FE924A] transition-colors">
+                        {category.name}
+                      </h3>
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
+          </section>
 
-            {/* Правая часть - Категории товаров */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 z-10">
-              {categories.map((category) => (
-                <Link
-                  key={category.id}
-                  href={category.href}
-                  className="group relative bg-[#2A2529] border-2 border-[#FE924A] rounded-xl p-3 sm:p-4 lg:p-6 hover:border-[#FE924A]/80 transition-all"
-                >
-                  <div className="aspect-square bg-[#3B363C] rounded-lg mb-4 flex items-center justify-center overflow-hidden relative">
-                    {category.image ? (
-                      <div className="relative w-full h-full flex items-center justify-center">
-                        <Image
-                          src={category.image}
-                          alt={category.name}
-                          width={193}
-                          height={193}
-                          className="object-contain rounded-lg max-w-[193px]"
-                          sizes="193px"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-[#3B363C] to-[#2A2529] flex items-center justify-center">
-                        <span className="text-white/30 text-sm">Изображение</span>
-                      </div>
-                    )}
+          {/* Блок услуг */}
+          <section className="py-10 sm:py-14 lg:py-16">
+            <div className="container mx-auto px-4 w-full">
+              <div className="max-w-5xl">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight">
+                  <span className="text-[#FE924A]">ENT</span>{' '}
+                  <span className="text-white">
+                    реализуем комплексные
+                    <br className="hidden sm:block" /> инженерные решения
+                  </span>
+                </h2>
+              </div>
+
+              <div className="mt-8 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-x-10 gap-y-8 max-w-4xl">
+                {serviceItems.map((item) => (
+                  <div key={item.id} className="flex flex-col items-center text-center">
+                    <div className="flex h-16 w-16 lg:h-[150px] lg:w-[150px] items-center justify-center">
+                      <Image
+                        src={item.image}
+                        alt={item.title}
+                        width={150}
+                        height={150}
+                        className="h-12 w-12 lg:h-[150px] lg:w-[150px] object-contain"
+                        sizes="(max-width: 1024px) 64px, 150px"
+                      />
+                    </div>
+                    <p className="mt-3 text-white text-sm sm:text-base leading-relaxed max-w-[220px]">
+                      {item.title}
+                    </p>
                   </div>
-                  <h3 className="text-white text-sm font-medium text-center group-hover:text-[#FE924A] transition-colors">
-                    {category.name}
-                  </h3>
+                ))}
+              </div>
+
+              <div className="mt-8 flex justify-start sm:justify-end max-w-4xl">
+                <Link href="/services">
+                  <Button variant="outline" size="lg">
+                    Смотреть услуги
+                  </Button>
                 </Link>
-              ))}
+              </div>
             </div>
-          </div>
+          </section>
         </div>
-      </section>
+      </div>
 
       {/* Блок "Новые модели" */}
       <section className="py-8 sm:py-12 lg:py-16 overflow-hidden">

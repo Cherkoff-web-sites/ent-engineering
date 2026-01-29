@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 const navigationItems = [
   { href: '/about', label: 'О компании' },
@@ -14,22 +15,14 @@ export default function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Логотип слева */}
-          <div className="flex items-start gap-3">
-            <div className="flex-shrink-0">
-              {/* Графика здания - можно заменить на реальное изображение */}
-              <div className="w-12 h-12 bg-white/10 rounded flex items-center justify-center">
-                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect x="8" y="20" width="4" height="8" fill="white" opacity="0.7"/>
-                  <rect x="14" y="16" width="4" height="12" fill="white" opacity="0.7"/>
-                  <rect x="20" y="18" width="4" height="10" fill="white" opacity="0.7"/>
-                  <rect x="6" y="28" width="20" height="2" fill="white" opacity="0.7"/>
-                </svg>
-              </div>
-            </div>
-            <div className="flex flex-col">
-              <div className="text-2xl font-bold text-white leading-none mb-1">ENT</div>
-              <div className="text-xs text-white/80 leading-none">ENERGY AND TECHNOLOGY</div>
-            </div>
+          <div className="flex items-start">
+            <Image
+              src="/images/logo.svg"
+              alt="ENT Engineering"
+              width={180}
+              height={48}
+              className="h-10 w-auto sm:h-12"
+            />
           </div>
 
           {/* Контакты в центре */}

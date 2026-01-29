@@ -110,9 +110,19 @@ export default async function ProductPage({ params }: { params: { productId: str
 
               {/* Кнопки */}
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                <Button size="lg" className="w-full sm:w-auto flex-1">
-                  Заказать
-                </Button>
+                <AddToCartButton
+                  product={{
+                    id: product.id,
+                    name: product.name,
+                    model: product.series,
+                    price: product.price,
+                    image: product.images[0],
+                    href: `/catalog/${product.id}`,
+                  }}
+                  label="Заказать"
+                  variant="primary"
+                  allowZeroPrice
+                />
                 <AddToCartButton
                   product={{
                     id: product.id,

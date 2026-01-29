@@ -46,14 +46,13 @@ export default function ContactForm() {
   }
 
   return (
-    <section id="contact-form" className="relative min-h-[600px] flex items-center overflow-hidden">
-      {/* Фоновое изображение справа (скрыто на мобильных) */}
-      <div 
-        className="hidden lg:block absolute right-0 top-0 bottom-0 w-1/3 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/images/callback_bg.png)',
-        }}
-      />
+    <section
+      id="contact-form"
+      className="relative min-h-[600px] flex items-center overflow-hidden bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: 'url(/images/bg_callback.webp)',
+      }}
+    >
       
       {/* Форма слева */}
       <div className="container mx-auto px-4 py-8 sm:py-16 relative z-10 w-full">
