@@ -23,6 +23,8 @@ WORKDIR /app
 ENV NODE_ENV=production
 # Timeweb Cloud по умолчанию использует порт 8080
 ENV PORT=8080
+# Обязательно: иначе приложение слушает только localhost и прокси не достучится (502)
+ENV HOSTNAME=0.0.0.0
 EXPOSE 8080
 
 # Создаём непривилегированного пользователя
