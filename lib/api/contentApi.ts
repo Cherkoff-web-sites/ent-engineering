@@ -1,5 +1,6 @@
 import { readFile } from 'fs/promises'
 import { join } from 'path'
+import { unstable_noStore as noStore } from 'next/cache'
 
 const CONTENT_FILE = join(process.cwd(), 'data', 'content.json')
 
@@ -20,6 +21,8 @@ export interface ContentData {
 }
 
 export async function getContent(): Promise<ContentData> {
+  // Отключаем кэширование, чтобы админка обновляла контент сразу
+  noStore()
   try {
     const content = await readFile(CONTENT_FILE, 'utf-8')
     return JSON.parse(content)
