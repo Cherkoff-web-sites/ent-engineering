@@ -1,4 +1,3 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import ContactForm from '@/components/ContactForm/ContactForm'
@@ -9,25 +8,6 @@ import AddToCartButton from './AddToCartButton'
 import { getProduct } from '@/lib/api/productsApi'
 import { productsData } from '@/lib/api/productsData'
 import { notFound } from 'next/navigation'
-
-export async function generateMetadata({ 
-  params 
-}: { 
-  params: { productId: string } 
-}): Promise<Metadata> {
-  const product = await getProduct(params.productId) || productsData[params.productId]
-  
-  if (!product) {
-    return {
-      title: 'Товар не найден | ENT Engineering',
-    }
-  }
-
-  return {
-    title: `${product.name} | ${product.series} - ENT Engineering`,
-    description: product.description,
-  }
-}
 
 export default async function ProductPage({ params }: { params: { productId: string } }) {
   const product = await getProduct(params.productId) || productsData[params.productId]

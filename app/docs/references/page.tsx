@@ -1,10 +1,4 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
-
-export const metadata: Metadata = {
-  title: 'Референции | ENT Engineering',
-  description: 'Референции ENT Engineering.',
-}
 
 const downloadIcon = (
   <svg width="26" height="22" viewBox="0 0 26 22" fill="none" xmlns="http://www.w3.org/2000/svg">

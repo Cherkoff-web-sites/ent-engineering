@@ -1,14 +1,7 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
 import CertificateDownloadButton from '@/components/CertificateDownloadButton'
 import { getContent } from '@/lib/api/contentApi'
-
-// SSG страница - генерируется статически для SEO
-export const metadata: Metadata = {
-  title: 'О компании | ENT Engineering',
-  description: 'Информация о компании ENT Engineering',
-}
 
 export default async function AboutPage() {
   const content = await getContent()

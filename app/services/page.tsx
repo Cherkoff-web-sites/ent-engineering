@@ -1,12 +1,5 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import ContactForm from '@/components/ContactForm/ContactForm'
-
-// SSG страница - генерируется статически для SEO
-export const metadata: Metadata = {
-  title: 'Услуги | ENT Engineering',
-  description: 'Услуги компании ENT Engineering: шефмонтаж, пусконаладка, обучение персонала',
-}
 
 export default function ServicesPage() {
   const services = [

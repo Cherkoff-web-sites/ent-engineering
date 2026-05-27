@@ -8,8 +8,16 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin', 'cyrillic'] })
 
 export const metadata: Metadata = {
-  title: 'ENT Engineering - Гибридный сайт Next.js + React',
-  description: 'Статичные страницы + React каталог инженерных решений',
+  title: 'Cherkoff разработка сайтов',
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 }
 
 export default function RootLayout({

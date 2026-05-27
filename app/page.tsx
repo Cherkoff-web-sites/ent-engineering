@@ -1,16 +1,8 @@
-import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import Button from '@/components/ui/Button'
 import ContactForm from '@/components/ContactForm/ContactForm'
 
-// SSG - статическая генерация для SEO
-export const metadata: Metadata = {
-  title: 'Главная | ENT Engineering',
-  description: 'Современные инженерные системы. Производство и сервис силовой преобразовательной техники.',
-}
-
-// Эта страница будет сгенерирована статически при сборке
 export default function HomePage() {
   const categories = [
     {

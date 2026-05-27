@@ -1,11 +1,5 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-
-export const metadata: Metadata = {
-  title: 'Техническая документация | ENT Engineering',
-  description: 'Техническая документация ENT Engineering: руководства, сертификаты, каталоги.',
-}
 
 export default function DocsPage() {
   const documents = [

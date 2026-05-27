@@ -1,12 +1,5 @@
-import type { Metadata } from 'next'
 import ContactForm from '@/components/ContactForm/ContactForm'
 import { getContent } from '@/lib/api/contentApi'
-
-// SSG страница для контактов
-export const metadata: Metadata = {
-  title: 'Контакты | ENT Engineering',
-  description: 'Контактная информация ENT Engineering',
-}
 
 export default async function ContactPage() {
   const content = await getContent()
